@@ -199,6 +199,14 @@ body {
     align-items: flex-start;
     gap: 2rem;
   }
+  .last-updated {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #ccc;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 3rem;
+  }
   
 
   
