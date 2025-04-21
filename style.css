@@ -254,23 +254,46 @@ body {
       max-width: 600px;
       color: #fff;
     }
-    .golf-section {
-      margin-top: 2rem;
+    
+    .hobbies-section {
+      margin-top: 3rem;
       text-align: center;
+      color: #fff;
     }
     
-    .golf-pic {
-      width: 300px;
-      height: auto;
+    .hobby-gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    
+    .hobby-item {
+      flex: 1 1 250px;
+      max-width: 300px;
+    }
+    
+    .hobby-item img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
     }
     
-    .golf-caption {
+    .hobby-item img:hover {
+      transform: scale(1.05);
+    }
+    
+    .hobby-item p {
       margin-top: 0.5rem;
       font-style: italic;
       color: #ddd;
-    }  
+    }
+    
+    
     @media (max-width: 768px) {
       .school-entry,
       .about-me-top,
@@ -305,5 +328,31 @@ body {
         justify-content: center;
       }
     }
-      
+    @media (max-width: 768px) {
+      .about-me-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    
+      .about-pic {
+        width: 150px;
+        height: 150px;
+      }
+    
+      .about-text {
+        max-width: 100%;
+        padding: 0 1rem;
+      }
+    
+      .golf-pic {
+        width: 90%;
+        max-width: 300px;
+      }
+    
+      .golf-caption {
+        padding: 0 1rem;
+      }
+    }
+    
   
