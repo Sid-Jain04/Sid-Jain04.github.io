@@ -94,11 +94,13 @@ body {
   }
   
   .school-image {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: auto;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
+  
   
   .school-info h3 {
     margin: 0;
@@ -164,8 +166,9 @@ body {
 
   
     .experience-details-slideout img {
-    width: 300px;
-    height: auto;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     object-fit: cover;
@@ -174,5 +177,20 @@ body {
         transform: scale(1.03);
         cursor: pointer;
       }
+      @media (max-width: 768px) {
+        .school-entry,
+        .experience-details-slideout {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+      
+        .school-image,
+        .experience-details-slideout img {
+          max-width: 100%;
+          width: 90%;
+        }
+      }
+      
 
   
