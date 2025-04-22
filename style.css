@@ -30,12 +30,12 @@ body {
     
    opacity: 0; /* Start hidden */
    animation: fadeIn 1s ease-out forwards; /* Run animation */
-   animation-delay: 0.5s; /* Optional: small delay */  
+   animation-delay: 0.3s; /* Optional: small delay */  
   }
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(15px); /* optional slide up */
+      transform: translateY(15px); 
     }
     to {
       opacity: 1;
