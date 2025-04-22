@@ -27,9 +27,21 @@ body {
     height: 350px;
     border-radius: 0; /* Square shape */
     object-fit: cover;
-      
+    
+   opacity: 0; /* Start hidden */
+   animation: fadeIn 1s ease-out forwards; /* Run animation */
+   animation-delay: 0.5s; /* Optional: small delay */  
   }
-  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px); /* optional slide up */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   /* Navigation Bar */
   nav {
     display: flex;
