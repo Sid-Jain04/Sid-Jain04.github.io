@@ -260,6 +260,9 @@ body {
       border-radius: 10px;
       object-fit: cover;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0; /* Start hidden */
+   animation: fadeIn 1s ease-out forwards; /* Run animation */
+   animation-delay: 0.3s; /* Optional: small delay */  
     }
     
     .about-text {
