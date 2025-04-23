@@ -369,5 +369,24 @@ body {
         padding: 0 1rem;
       }
     }
+    .resume-float-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #e44608;
+      color: #fff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    
+    .resume-float-button:hover {
+      background-color: #e67835;
+      transform: scale(1.05);
+    }
     
   
