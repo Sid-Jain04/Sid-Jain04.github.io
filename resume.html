@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Siddharth Jain | Home</title>
+  <title>Siddharth Jain | Resume</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
-
+<!-- AOS CSS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   
 
 </head>
@@ -34,7 +35,7 @@
   <div class="education">
     <h2>Education</h2>
     <div class="school-entry">
-      <img src="images/Virginia-Tech.jpg" alt="Virgina Tech" class="school-image">
+      <img src="images/Virginia-Tech.jpg" alt="Virgina Tech" class="school-image" data-aos="fade-left">
       <div class="school-info">
         <h3><a href="https://www.vt.edu" target="_blank">Virginia Tech</a></h3>
         <p>Bachelor of Science in Computer Science
@@ -44,8 +45,8 @@
         <p>GPA: 3.28</p>
       </div>
     </div>
-    <div class="school-entry">
-      <img src="images/Lightridge.jpg" alt="Lightridge Highschool" class="school-image">
+    <div class="school-entry" >
+      <img src="images/Lightridge.jpg" alt="Lightridge Highschool" class="school-image" data-aos="fade-left">
       <div class="school-info">
         <h3><a href="https://www.lcps.org/o/lrh" target="_blank">Lightridge High School</a></h3>
         <p>Advance Diploma</p>
@@ -101,5 +102,13 @@
   </div>
   </div>
 </section>
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // animation duration (ms)
+    once: true     // only animate once
+  });
+</script>
 </body>
 </html>
