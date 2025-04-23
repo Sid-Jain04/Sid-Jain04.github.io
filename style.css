@@ -1,9 +1,9 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    font-style: italic;
     font-optical-sizing: auto;
     font-weight: 300;
+    font-style: italic;
     background-color: #4d4a49; /* coffee color #997860*/
   color: #fff; /* optional: light text for contrast */
     margin: 0;
@@ -48,8 +48,8 @@ body {
   .nav-left a,
   .nav-right a {
     color: white;
+    font-style: normal;
     text-decoration: none;
-    font-weight: bold;
     margin: 0 .5rem;
     white-space: nowrap;
   }
@@ -395,7 +395,12 @@ body {
       width: 100%;
       max-width: 400px;
       border-radius: 10px;
+      object-fit: cover;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-       
+    .github-cards img:hover {
+      box-shadow: 0 4 12px rgba(255, 255, 255, 0.7);
+      transform: scale(1.05);
+      cursor: pointer;
+    }       
   
