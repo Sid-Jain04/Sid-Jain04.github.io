@@ -176,6 +176,7 @@ body {
   }
   .experience-entry {
     margin-bottom: 2rem;
+    
   }
 
   .experience-details h3 {
@@ -199,6 +200,7 @@ body {
     border-radius: 8px;
     align-items: flex-start;
     gap: 2rem;
+    
   }
   .last-updated {
     text-align: center;
@@ -375,5 +377,25 @@ body {
       background-color: #e67835;
       transform: scale(1.05);
     }
+    .github-section {
+      margin-top: 3rem;
+      text-align: center;
+      color: #fff;
+    }
     
+    .github-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    
+    .github-cards img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+       
   
