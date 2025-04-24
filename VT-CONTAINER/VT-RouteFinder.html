@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VT Campus Navigator</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="vt-style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search for a building..." />
+      <select id="filterType">
+        <option value="all">All Types</option>
+        <option value="academic">Academic</option>
+        <option value="dorm">Dorm</option>
+        <option value="dining">Dining</option>
+        <option value="admin">Administrative</option>
+      </select>
+      <select id="fromSelect"><option value="">From...</option></select>
+      <select id="toSelect"><option value="">To...</option></select>
+      <button onclick="calculateRoute()">Show Route</button>
+      <button onclick="clearRoute()">Clear Route</button>
+    </div>
+  </div>
+  
+  <!-- Now outside the container -->
+  <div id="map"></div>
+  <div id="landmarkPreview" class="landmark-preview-container" style="display: none;">
+    <h3>Landmarks Along the Way</h3>
+    <div id="landmarkCards" class="landmark-cards"></div>
+  </div>
+  
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.min.js"></script>
+  <script>
+    const map = L.map('map').setView([37.2296, -80.4244], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const icons = {
+      academic: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
+      dorm: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/809/809957.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
+      dining: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/5787/5787982.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
+      admin: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/685/685262.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] })
+    };
+
+    const buildings = [
+      { name: 'New Hall West', lat: 37.2220981275908, lng: -80.42280320332495, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+      { name: 'Hoge Hall', lat: 37.22464979016949, lng: -80.41814712426391, description: 'Dormitory', type: 'dorm' },
+      { name: 'Torgersen Hall', lat: 37.22986122351267, lng: -80.42010410908762, description: 'Home of the Computer Science department.', type: 'academic', image: 'Images/torg.jpg' },
+      { name: 'Goodwin Hall', lat: 37.2325288626481, lng: -80.42538163693267, description: 'College of Engineering, general labs and classrooms.', type: 'academic'  },
+      { name: 'Burruss Hall', lat: 37.22918268044685, lng: -80.42356395549267, description: 'Administrative building and auditorium.', type: 'admin' },
+      { name: 'Pritchard Hall', lat: 37.2236, lng: -80.4239, description: 'A large dormitory on campus.', type: 'dorm' },
+      { name: 'Turner Place Dining', lat: 37.2254, lng: -80.4222, description: 'Popular dining location near the engineering buildings.', type: 'dining' }
+    ];
+
+    const markers = [];
+    let routingControl = null;
+
+    function displayLandmarksAlongRoute(routeLine) {
+      const container = document.getElementById("landmarkPreview");
+      const cards = document.getElementById("landmarkCards");
+      cards.innerHTML = '';
+      const threshold = 100; // meters
+
+      const landmarks = buildings.filter(b => {
+        const latLng = L.latLng(b.lat, b.lng);
+        return routeLine.getLatLngs().some(p => latLng.distanceTo(p) < threshold);
+      });
+
+      if (landmarks.length > 0) {
+        container.style.display = 'block';
+        landmarks.forEach(b => {
+          cards.innerHTML += `
+            <div class="landmark-card">
+              <img src="${b.image || 'images/placeholder.jpg'}" alt="${b.name}" />
+              <strong>${b.name}</strong>
+              <p style="font-size: 0.85rem;">${b.description}</p>
+            </div>`;
+        });
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    buildings.forEach(b => {
+      const marker = L.marker([b.lat, b.lng], { icon: icons[b.type] })
+        .bindPopup(`<strong>${b.name}</strong><br>${b.description}<br>
+        <img src="${b.image || 'images/placeholder.jpg'}" alt="${b.name}" style="width: 100%; max-width: 250px; border-radius: 8px; margin-top: 0.5rem;" />`);
+      marker.buildingType = b.type;
+      marker.name = b.name.toLowerCase();
+      marker.addTo(map);
+      markers.push(marker);
+
+      const option = `<option value="${b.lat},${b.lng}">${b.name}</option>`;
+      document.getElementById('fromSelect').insertAdjacentHTML('beforeend', option);
+      document.getElementById('toSelect').insertAdjacentHTML('beforeend', option);
+    });
+
+    function calculateRoute() {
+      const from = document.getElementById('fromSelect').value;
+      const to = document.getElementById('toSelect').value;
+      if (!from || !to || from === to) return;
+      const [fromLat, fromLng] = from.split(',').map(Number);
+      const [toLat, toLng] = to.split(',').map(Number);
+      if (routingControl) map.removeControl(routingControl);
+
+      routingControl = L.Routing.control({
+        router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1', profile: 'foot' }),
+        waypoints: [L.latLng(fromLat, fromLng), L.latLng(toLat, toLng)],
+        routeWhileDragging: false,
+        show: true,
+        collapsible: true,
+        lineOptions: {
+          styles: [{ color: '#e44608', opacity: 0.9, weight: 6 }]
+        },
+        createMarker: () => null,
+        formatter: new L.Routing.Formatter({ language: 'en', units: 'imperial' })
+      })
+      .on('routesfound', function (e) {
+        const routeLine = L.polyline(e.routes[0].coordinates);
+        displayLandmarksAlongRoute(routeLine);
+      })
+      .addTo(map);
+    }
+
+    function clearRoute() {
+      if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+        document.getElementById("landmarkCards").innerHTML = "";
+        document.getElementById("landmarkPreview").style.display = "none";
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function (e) {
+      const search = e.target.value.toLowerCase();
+      markers.forEach(m => {
+        if (m.name.includes(search)) {
+          map.setView(m.getLatLng(), 18);
+          m.openPopup();
+        }
+      });
+    });
+
+    document.getElementById('filterType').addEventListener('change', function (e) {
+      const type = e.target.value;
+      markers.forEach(m => {
+        if (type === 'all' || m.buildingType === type) {
+          if (!map.hasLayer(m)) map.addLayer(m);
+        } else {
+          if (map.hasLayer(m)) map.removeLayer(m);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
