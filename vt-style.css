@@ -98,6 +98,41 @@ body {
     max-width: 350px;
   }
   
+  .landmark-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
   
+  .landmark-card {
+    background-color: #4d4a49;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+  }
   
+  .landmark-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .landmark-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 200px;
+  }
+  
+  .landmark-card h4,
+  .landmark-card p {
+    margin: 0.5rem 0;
+    color: #fff;
+  }
   

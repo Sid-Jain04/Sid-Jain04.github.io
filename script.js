@@ -6,19 +6,43 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const icons = {
-  academic: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
-  dorm: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/809/809957.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
+  academic: L.icon({ iconUrl: 'Images/Virginia-Images/academic.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
+  dorm: L.icon({ iconUrl: 'Images/Virginia-Images/dorm.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
   dining: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/5787/5787982.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] }),
   admin: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/685/685262.png', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30] })
 };
 
 const buildings = [
+  //dorms
+  { name: 'West Ambler Johnston Hall', lat: 37.223066727509604, lng: -80.42090307186976, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'East Eggleston Hall', lat: 37.227765289027865,  lng: -80.41929815141087, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Johnson Hall', lat: 37.225645625317995,  lng: -80.41765510921543, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Vawter Hall', lat: 37.22701830244507,  lng:-80.41761318476634 , description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Miles Hall', lat: 37.22555627529684,  lng: -80.41691737275275, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'East Ambler Johnston Hall', lat: 37.223226111914876,  lng: -80.42057508343552, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Slusher Hall', lat: 37.225565430227874,  lng: -80.42098644294008, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Cochrane Hall', lat: 37.222975256440954,  lng: -80.42215863390041, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Payne Hall', lat: 37.22584734101497,   lng: -80.42002447420631, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'East Campbell', lat: 37.22630884762055,   lng: -80.42149071328302, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Main Campbell', lat: 37.22616103727835,   lng: -80.42195778831773, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Cochrane Hall', lat: 37.222975256440954,  lng: -80.42215863390041, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: 'Prichard Hall', lat: 37.22431366271656, lng: -80.4197782984045, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
+  { name: ' OShaughnessy Hall', lat: 37.22535669043357,  lng: -80.41826778025533, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
   { name: 'New Hall West', lat: 37.2220981275908, lng: -80.42280320332495, description: 'Dormitory', type: 'dorm', image: 'images/torgersen.jpg'},
   { name: 'Hoge Hall', lat: 37.22464979016949, lng: -80.41814712426391, description: 'Dormitory', type: 'dorm' },
+  //Academic Buildings
   { name: 'Torgersen Hall', lat: 37.22986122351267, lng: -80.42010410908762, description: 'Home of the Computer Science department.', type: 'academic', image: 'Images/torg.jpg' },
   { name: 'Goodwin Hall', lat: 37.2325288626481, lng: -80.42538163693267, description: 'College of Engineering, general labs and classrooms.', type: 'academic' },
+  { name: 'Pamplin Hall College of Business', lat: 37.22867861775722,  lng: -80.42480667816986, description: 'College of Engineering, general labs and classrooms.', type: 'academic' },
+  { name: 'Data and Decision Sciences', lat: 37.23172859362355,  lng: -80.42733179669237, description: 'College of Engineering, general labs and classrooms.', type: 'academic' },
+  { name: 'Goodwin Hall', lat: 37.2325288626481, lng: -80.42538163693267, description: 'College of Engineering, general labs and classrooms.', type: 'academic' },
+  { name: 'Goodwin Hall', lat: 37.2325288626481, lng: -80.42538163693267, description: 'College of Engineering, general labs and classrooms.', type: 'academic' },
+
+
+
+
+
   { name: 'Burruss Hall', lat: 37.22918268044685, lng: -80.42356395549267, description: 'Administrative building and auditorium.', type: 'admin' },
-  { name: 'Pritchard Hall', lat: 37.2236, lng: -80.4239, description: 'A large dormitory on campus.', type: 'dorm' },
   { name: 'Turner Place Dining', lat: 37.2254, lng: -80.4222, description: 'Popular dining location near the engineering buildings.', type: 'dining' }
 ];
 
@@ -74,7 +98,7 @@ function calculateRoute() {
   if (routingControl) map.removeControl(routingControl);
 
   routingControl = L.Routing.control({
-    router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1', profile: 'foot' }),
+    router: L.Routing.osrmv1({ serviceUrl: 'https://router.project-osrm.org/route/v1', profile: 'pedestrian' }),
     waypoints: [L.latLng(fromLat, fromLng), L.latLng(toLat, toLng)],
     routeWhileDragging: false,
     show: true,
