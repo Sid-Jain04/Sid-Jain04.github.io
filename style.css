@@ -417,4 +417,174 @@ body {
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
+    .golf-preview, .golf-section {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .golf-button {
+      background-color: #e44608;
+      padding: 0.5rem 1.2rem;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .golf-button:hover {
+      background-color: #ff6a2d;
+      transform: scale(1.05);
+    }
+    
+    .golf-stats h3 {
+      margin: 1rem 0;
+    }
+    
+    .golf-gallery {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .golf-gallery img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+    .golf-stats-section {
+      text-align: center;
+      margin: 3rem auto;
+      padding: 1rem;
+    }
+    
+    .golf-stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .golf-stat-card {
+      background-color: #4d4a49;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 150px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    
+    .golf-stat-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .golf-stat-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e44608;
+    }
+    .golf-courses-section {
+      text-align: center;
+      margin: 3rem auto;
+      padding: 1rem;
+    }
+    
+    .golf-courses-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .golf-course-card {
+      background-color: #4d4a49;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      max-width: 250px;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .golf-course-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .golf-course-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    
+    .golf-course-card h4, 
+    .golf-course-card p {
+      color: #fff;
+      margin: 0.5rem 0;
+    }
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+    
+    .modal-content {
+      background-color: #2b2b2b;
+      margin: 10% auto;
+      padding: 2rem;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    
+    .close-button {
+      color: #fff;
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close-button:hover {
+      color: #e44608;
+    }
+    .scorecard-table {
+      width: 100%;
+      margin: 1rem 0;
+      border-collapse: collapse;
+    }
+    
+    .scorecard-table th,
+    .scorecard-table td {
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid #fff;
+      color: #fff;
+    }
+    
+    .scorecard-table th {
+      background-color: #4d4a49;
+      font-weight: bold;
+    }
+    
+    .scorecard-table td {
+      background-color: #2b2b2b;
+    }
     

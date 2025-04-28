@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siddharth Jain | Golf Feed</title>
+  <link rel="icon" type="image/x-icon" href="images/Logo.ico" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="images/SJ-logo.png" class="nav-logo" />
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="resume.html">Resume</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">Projects</a>
+      <a href="golf.html">Golf Feed</a>
+    </div>
+  </nav>
+
+  <section class="golf-stats-section">
+    <h2>🏌️‍♂️ My Golf Stats</h2>
+    <div class="golf-stats-grid">
+      <div class="golf-stat-card">
+        <h3>Handicap</h3>
+        <div class="stat-number" data-target="6.2">0</div>
+      </div>
+      <div class="golf-stat-card">
+        <h3>Best 9-Hole Round</h3>
+        <div class="stat-number" data-target="38">0</div>
+      </div>
+      <div class="golf-stat-card">
+        <h3>Average 9-Hole Score</h3>
+        <div class="stat-number" data-target="39.3">0</div>
+      </div>
+      <div class="golf-stat-card">
+        <h3>Estimated 18-Hole Avg</h3>
+        <div class="stat-number" data-target="78.5">0</div>
+      </div>
+      
+      
+    </div>
+  </section>
+
+  <section class="golf-courses-section">
+    <h2>🏌️‍♂️ Courses I've Played</h2>
+    <div class="golf-courses-grid">
+      <div class="golf-course-card" onclick="openCourse('virginia-tech-golf-course')">
+        <img src="images/Golf Courses/VTGOLF.jpg" alt="Virginia Tech Golf Course">
+        <h4>Virginia Tech Golf Course</h4>
+        <p>Blacksburg, VA</p>
+      </div>
+      <div class="golf-course-card" onclick="openCourse('brambleton')">
+        <img src="images/Golf Courses/bramblton-golf.jpg" alt="Brambleton Golf Course">
+        <h4>Brambleton</h4>
+        <p>Ashburn, VA</p>
+      </div>
+      <div class="golf-course-card" onclick="openCourse('auburn-hills')">
+        <img src="images/Golf Courses/auburn-hills.jpg" alt="Auburn Hills Golf Course">
+        <h4>Auburn Hills</h4>
+        <p>Riner, VA</p>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Modal for Course Info -->
+  <div id="courseModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeModal()">&times;</span>
+      <div id="modalContent">
+        <!-- course info loads here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(num => {
+      const updateCount = () => {
+        const target = +num.getAttribute('data-target');
+        const current = +num.innerText;
+        const increment = target / 100;
+        if (current < target) {
+          num.innerText = (current + increment).toFixed(1);
+          setTimeout(updateCount, 20);
+        } else {
+          num.innerText = target;
+        }
+      };
+      updateCount();
+    });
+
+    
+const courses = {
+  "virginia-tech-golf-course": {
+  title: "Virginia Tech Golf Course (Virginia Tech)",
+  favoriteHole: "Hole 4 (short par 3!)", // You can change this
+  notes: "Tight fairways and scenic mountain views.",
+  games: [
+    {
+      datePlayed: "April 5, 2025",
+      scores: [5, 4, 4, 3, 4, 5, 4, 5, 6],
+      totalScore: 40
+    },
+    {
+      datePlayed: "March 29, 2025",
+      scores: [4, 5, 4, 3, 4, 5, 4, 4, 3],
+      totalScore: 40
+    }
+  ]
+},
+"brambleton": {
+  title: "Brambleton",
+  favoriteHole: "Hole 2 (short par 3!)", // you can change this
+  notes: "Fun wide fairways and a great pace of play.",
+  games: [
+    {
+      datePlayed: "March 12, 2025",
+      scores: [4, 3, 4, 4, 5, 3, 4, 4, 3],
+      totalScore: 38
+    }
+  ]
+},
+"auburn-hills": {
+  title: "Auburn Hills",
+  favoriteHole: "Hole 5 (tight approach shot)", // you can update this
+  notes: "Open fairways with a few tricky greens.",
+  games: [
+    {
+      datePlayed: "September 14, 2024",
+      scores: [4, 4, 5, 3, 5, 3, 4, 4, 3],
+      totalScore: 39
+    }
+  ]
+}
+
+
+};
+// Thanks CHATGPT saved me
+function openCourse(courseId) {
+  const modal = document.getElementById("courseModal");
+  const content = document.getElementById("modalContent");
+
+  const course = courses[courseId];
+  if (course) {
+    let gamesHtml = "";
+
+    course.games.forEach(game => {
+      let scoreTable = "<table class='scorecard-table'><tr>";
+      game.scores.forEach((score, idx) => {
+        scoreTable += `<th>Hole ${idx + 1}</th>`;
+      });
+      scoreTable += "</tr><tr>";
+      game.scores.forEach(score => {
+        scoreTable += `<td>${score}</td>`;
+      });
+      scoreTable += "</tr></table>";
+
+      gamesHtml += `
+        <div class="golf-game">
+          <h4>Round on ${game.datePlayed} (Total Score: ${game.totalScore})</h4>
+          ${scoreTable}
+        </div>
+      `;
+    });
+
+    content.innerHTML = `
+      <h2>${course.title}</h2>
+      <ul>
+        <li><strong>Favorite Hole:</strong> ${course.favoriteHole}</li>
+        <li><strong>Notes:</strong> ${course.notes}</li>
+      </ul>
+      ${gamesHtml}
+    `;
+    modal.style.display = "block";
+  }
+}
+
+
+
+  const course = courses[courseId];
+  if (course) {
+    let scoreTable = "<table class='scorecard-table'><tr>";
+    course.scores.forEach((score, idx) => {
+      scoreTable += `<th>Hole ${idx + 1}</th>`;
+    });
+    scoreTable += "</tr><tr>";
+    course.scores.forEach(score => {
+      scoreTable += `<td>${score}</td>`;
+    });
+    scoreTable += "</tr></table>";
+
+    content.innerHTML = `
+      <h2>${course.title}</h2>
+      <p><strong>Date Played:</strong> ${course.datePlayed}</p>
+      ${scoreTable}
+      <ul>
+        <li><strong>Best Score:</strong> ${course.bestScore}</li>
+        <li><strong>Average Score:</strong> ${course.averageScore}</li>
+        <li><strong>Favorite Hole:</strong> ${course.favoriteHole}</li>
+        <li><strong>Notes:</strong> ${course.notes}</li>
+      </ul>
+    `;
+    modal.style.display = "block";
+  }
+
+
+
+    function closeModal() {
+      document.getElementById("courseModal").style.display = "none";
+    }
+
+    // Close modal if clicking outside content
+    window.onclick = function(event) {
+      const modal = document.getElementById("courseModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
