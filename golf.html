@@ -167,11 +167,21 @@ function openCourse(courseId) {
       scoreTable += "</tr></table>";
 
       gamesHtml += `
-        <div class="golf-game">
-          <h4>Round on ${game.datePlayed} (Total Score: ${game.totalScore})</h4>
-          ${scoreTable}
-        </div>
-      `;
+  <div class="golf-game">
+    <h4>Round on ${game.datePlayed} (Total Score: ${game.totalScore})</h4>
+    <div class="table-scroll">
+      <table class="scorecard-table">
+        <tr>
+          ${game.scores.map((_, idx) => `<th>Hole ${idx + 1}</th>`).join('')}
+        </tr>
+        <tr>
+          ${game.scores.map(score => `<td>${score}</td>`).join('')}
+        </tr>
+      </table>
+    </div>
+  </div>
+`;
+
     });
 
     content.innerHTML = `
